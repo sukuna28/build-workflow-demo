@@ -1,7 +1,7 @@
 name: Comment on PR
 
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, edited, reopened, synchronize]
     branches:
       - main
@@ -18,7 +18,7 @@ jobs:
         script: |
           const prNumber = context.payload.pull_request.number;
           const comment = "Thanks for the PR, we'll merge it after review.";
-          await github.issues.createComment({
+          await github.rest.issues.createComment({
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: prNumber,
